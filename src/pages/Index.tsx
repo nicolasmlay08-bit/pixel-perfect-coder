@@ -1,12 +1,98 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+/**
+ * Dashboard Page (Index) - Main client dashboard for First Immo
+ * Layout: Full-width header → Sidebar + Content area → Footer
+ * Responsive: sidebar collapses to hamburger on mobile
+ */
+import React, { useState } from 'react';
+import { Menu } from 'lucide-react';
+import DashboardHeader from '@/components/dashboard/DashboardHeader';
+import DashboardSidebar from '@/components/dashboard/DashboardSidebar';
+import UserProfileCard from '@/components/dashboard/UserProfileCard';
+import PromoteurCard from '@/components/dashboard/PromoteurCard';
+import InvestBanner from '@/components/dashboard/InvestBanner';
+import ProjectCard from '@/components/dashboard/ProjectCard';
+import DashboardFooter from '@/components/dashboard/DashboardFooter';
+import project1 from '@/assets/project-1.jpg';
+import project2 from '@/assets/project-2.jpg';
 
-const Index = () => {
+const Index: React.FC = () => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen bg-background">
+      {/* Full-width header */}
+      <DashboardHeader />
+
+      {/* Main content area with sidebar */}
+      <div className="px-4 sm:px-6 lg:px-10 py-6 lg:py-8">
+        {/* Mobile menu toggle */}
+        <button
+          className="lg:hidden mb-4 flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+          onClick={() => setSidebarOpen(true)}
+        >
+          <Menu size={20} />
+          Menu
+        </button>
+
+        <div className="flex gap-6 lg:gap-8">
+          {/* Sidebar */}
+          <div className="flex-shrink-0">
+            <DashboardSidebar
+              isOpen={sidebarOpen}
+              onClose={() => setSidebarOpen(false)}
+            />
+          </div>
+
+          {/* Main content */}
+          <div className="flex-1 min-w-0 space-y-6">
+            {/* Top cards row: Profile + Promoteur */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              <UserProfileCard />
+              <PromoteurCard />
+            </div>
+
+            {/* Investment banner */}
+            <InvestBanner />
+
+            {/* Projects section */}
+            <div>
+              <h2 className="text-center text-base font-semibold text-foreground mb-5">
+                Tout les projets consulté
+              </h2>
+
+              <div className="space-y-4">
+                <ProjectCard
+                  image={project1}
+                  title="Résidence Théa"
+                  description="En front de mer, la résidence Théa est notre résidence exclusive, sécurisée et rentable de 18 ...."
+                  price="60 000 000 FCFA"
+                  promoter="Marc.H"
+                  location="Almadies"
+                  type="Immeuble"
+                  score={30}
+                  subScore={31}
+                  certified
+                />
+                <ProjectCard
+                  image={project2}
+                  title="Almadies Residence"
+                  description="Conçu pour allier esthétique contemporaine et exigences environnementales, il vise les"
+                  price="7 000 €"
+                  promoter="Marie.H"
+                  location="Almadies"
+                  type="Immeuble"
+                  score={30}
+                  subScore={69}
+                  certified
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Footer */}
+      <DashboardFooter />
     </div>
   );
 };
