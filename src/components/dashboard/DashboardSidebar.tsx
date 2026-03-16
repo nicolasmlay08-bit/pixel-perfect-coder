@@ -49,6 +49,7 @@ interface DashboardSidebarProps {
 }
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose, activeItem = 'Tableau de bord' }) => {
+  const navigate = useNavigate();
   return (
     <>
       {/* Mobile overlay */}
