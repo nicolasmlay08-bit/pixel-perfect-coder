@@ -5,6 +5,7 @@
  * Bottom has "Paramètres" link
  */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   User,
@@ -24,12 +25,12 @@ import {
 interface SidebarItem {
   icon: React.ElementType;
   label: string;
-  active?: boolean;
+  path?: string;
 }
 
 const menuItems: SidebarItem[] = [
-  { icon: LayoutDashboard, label: 'Tableau de bord', active: true },
-  { icon: User, label: 'Mon profil' },
+  { icon: LayoutDashboard, label: 'Tableau de bord', path: '/' },
+  { icon: User, label: 'Mon profil', path: '/profil' },
   { icon: FolderOpen, label: 'Mes projets' },
   { icon: FileText, label: 'Documents' },
   { icon: Users, label: 'Partenaires' },
@@ -44,9 +45,11 @@ const menuItems: SidebarItem[] = [
 interface DashboardSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  activeItem?: string;
 }
 
-const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose }) => {
+const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose, activeItem = 'Tableau de bord' }) => {
+  const navigate = useNavigate();
   return (
     <>
       {/* Mobile overlay */}
@@ -78,14 +81,15 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose }) 
             {menuItems.map((item) => (
               <button
                 key={item.label}
+                onClick={() => item.path && navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
-                  ${item.active
+                  ${item.label === activeItem
                     ? 'bg-fi-dark text-primary-foreground shadow-md'
                     : 'text-fi-gray-600 hover:bg-fi-gray-100 hover:text-foreground'
                   }
                 `}
               >
-                <item.icon size={18} strokeWidth={item.active ? 2.5 : 2} />
+                <item.icon size={18} strokeWidth={item.label === activeItem ? 2.5 : 2} />
                 <span>{item.label}</span>
               </button>
             ))}

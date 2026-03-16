@@ -8,7 +8,11 @@ import { Mail, Bell, ChevronDown } from 'lucide-react';
 import headerBg from '@/assets/header-bg.jpg';
 import logoIcon from '@/assets/logo-icon.png';
 
-const DashboardHeader: React.FC = () => {
+interface DashboardHeaderProps {
+  title?: string;
+}
+
+const DashboardHeader: React.FC<DashboardHeaderProps> = ({ title = 'Bonjour et Bienvenue' }) => {
   return (
     <header
       className="relative w-full bg-fi-dark overflow-hidden"
@@ -68,7 +72,7 @@ const DashboardHeader: React.FC = () => {
         {/* Welcome text */}
         <div className="text-center pb-8 pt-2 sm:pb-10 sm:pt-4">
           <h1 className="text-2xl sm:text-3xl font-medium text-primary-foreground">
-            Bonjour et Bienvenue
+            {title}
           </h1>
         </div>
       </div>
