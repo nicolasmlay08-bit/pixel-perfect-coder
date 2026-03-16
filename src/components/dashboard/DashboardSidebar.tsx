@@ -44,6 +44,7 @@ const menuItems: SidebarItem[] = [
 interface DashboardSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  activeItem?: string;
 }
 
 const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose }) => {
