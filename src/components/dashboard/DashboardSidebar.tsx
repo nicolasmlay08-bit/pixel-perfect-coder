@@ -81,6 +81,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose, ac
             {menuItems.map((item) => (
               <button
                 key={item.label}
+                onClick={() => item.path && navigate(item.path)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200
                   ${item.label === activeItem
                     ? 'bg-fi-dark text-primary-foreground shadow-md'
@@ -88,7 +89,7 @@ const DashboardSidebar: React.FC<DashboardSidebarProps> = ({ isOpen, onClose, ac
                   }
                 `}
               >
-                <item.icon size={18} strokeWidth={item.active ? 2.5 : 2} />
+                <item.icon size={18} strokeWidth={item.label === activeItem ? 2.5 : 2} />
                 <span>{item.label}</span>
               </button>
             ))}
