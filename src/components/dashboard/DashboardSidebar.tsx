@@ -25,7 +25,7 @@ import {
 interface SidebarItem {
   icon: React.ElementType;
   label: string;
-  active?: boolean;
+  path?: string;
 }
 
 const menuItems: SidebarItem[] = [
